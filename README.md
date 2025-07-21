@@ -1,1 +1,1 @@
-# CSCI214
+# CSCI 214: Pattern Recognition
