@@ -1,0 +1,4 @@
+method,params,n_clusters,silhouette,time_sec,noise_count
+KMeans (orig),k=3,3,0.2848589191898987,0.11797595024108887,0
+KMeans (PCA),"k=3, n_comp=8",3,0.314969695470556,0.10338091850280762,0
+DBSCAN (selected),"eps=0.2, min_samples=3",0,,0.0019297599792480469,178
