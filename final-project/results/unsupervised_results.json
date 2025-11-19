@@ -1,0 +1,18 @@
+{
+  "Original": {
+    "silhouette": 0.15532377362251282,
+    "dimensions": 784
+  },
+  "Vanilla_AE": {
+    "silhouette": 0.1328870803117752,
+    "dimensions": 32,
+    "parameters": 478256,
+    "training_time": 3408.333915710449
+  },
+  "CARB_AE": {
+    "silhouette": 0.15895366668701172,
+    "dimensions": 32,
+    "parameters": 786172,
+    "training_time": 5895.378742694855
+  }
+}
