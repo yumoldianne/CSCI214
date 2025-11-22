@@ -1,0 +1,20 @@
+{
+  "Baseline": {
+    "accuracy": 89.95,
+    "f1_score": 0.8992699292893335,
+    "parameters": 235914,
+    "training_time": 832.7469494342804
+  },
+  "ResNet": {
+    "accuracy": 89.69,
+    "f1_score": 0.8966398195206613,
+    "parameters": 334602,
+    "training_time": 801.4585697650909
+  },
+  "CARB": {
+    "accuracy": 90.14,
+    "f1_score": 0.9013129661935931,
+    "parameters": 426800,
+    "training_time": 999.9569847583771
+  }
+}

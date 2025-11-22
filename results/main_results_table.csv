@@ -1,0 +1,4 @@
+Method,Accuracy (%),F1-Score,Parameters,Training Time (s)
+Baseline,89.95,0.8993,"235,914",832.7
+ResNet,89.69,0.8966,"334,602",801.5
+CARB,90.14,0.9013,"426,800",1000.0
