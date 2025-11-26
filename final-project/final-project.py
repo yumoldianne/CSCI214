@@ -1,12 +1,8 @@
 """
-Context-Aware Residual Block (CARB) Implementation for Fashion-MNIST
-Novel Architecture: Multi-path block with dynamic context-based routing
+Learning Architectural Simplicity Through Multi-Path Routing: Context-Aware Residual Blocks for Deep Neural Networks
 
-This is an ARCHITECTURAL modification, not just an activation function.
-Key innovation: Layer arrangement with context-dependent path selection.
-
-Author: Graduate Student - CSCI 214
-Date: November 2025
+Author: Dianne Yumol - CSCI 214
+Date: December 2025
 """
 
 import torch
