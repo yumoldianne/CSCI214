@@ -34,7 +34,6 @@ np.random.seed(42)
 if torch.cuda.is_available():
     torch.cuda.manual_seed(42)
 
-# ==================== DATA CLASSES ====================
 
 @dataclass
 class TrainingConfig:
@@ -69,7 +68,6 @@ class ExperimentResults:
     parameters: int
     training_time: float
 
-# ==================== CORE ARCHITECTURAL COMPONENTS ====================
 
 class ContextNetwork(nn.Module):
     """
@@ -137,19 +135,19 @@ class ContextAwareResidualBlock(nn.Module):
         self.layer_depth = layer_depth
         self.total_layers = total_layers
         
-        # === PATH 1: Identity/Projection ===
+        # PATH 1: Identity/Projection
         if in_features == out_features:
             self.path_identity = nn.Identity()
         else:
             self.path_identity = nn.Linear(in_features, out_features, bias=False)
         
-        # === PATH 2: Linear Transformation ===
+        # PATH 2: Linear Transformation
         self.path_linear = nn.Sequential(
             nn.Linear(in_features, out_features),
             nn.BatchNorm1d(out_features)
         )
         
-        # === PATH 3: Non-linear Transformation (2-layer) ===
+        # PATH 3: Non-linear Transformation (2-layer)
         hidden_dim = max(out_features // 2, 32)
         self.path_nonlinear = nn.Sequential(
             nn.Linear(in_features, hidden_dim),
@@ -160,10 +158,10 @@ class ContextAwareResidualBlock(nn.Module):
             nn.BatchNorm1d(out_features)
         )
         
-        # === CONTEXT NETWORK ===
+        # CONTEXT NETWORK
         self.context_network = ContextNetwork()
         
-        # === FINAL ACTIVATION ===
+        # FINAL ACTIVATION
         self.activation = nn.ReLU(inplace=True)
         
         # Buffer to track training progress
@@ -258,8 +256,6 @@ class ContextAwareResidualBlock(nn.Module):
         """Reset routing history"""
         self.routing_history = []
 
-
-# ==================== NEURAL NETWORK ARCHITECTURES ====================
 
 class BaselineFFNN(nn.Module):
     """Baseline feed-forward neural network (standard architecture)"""
@@ -455,8 +451,6 @@ class CARBNetwork(nn.Module):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
 
-# ==================== AUTOENCODER ARCHITECTURES ====================
-
 class VanillaAutoencoder(nn.Module):
     """Baseline autoencoder with standard architecture"""
     
@@ -587,8 +581,6 @@ class CARBAutoencoder(nn.Module):
         """Count trainable parameters"""
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
 
-
-# ==================== TRAINER CLASSES ====================
 
 class ClassifierTrainer:
     """Trainer for classification models"""
@@ -801,8 +793,6 @@ class AutoencoderTrainer:
         return np.vstack(latent_codes), np.hstack(labels)
 
 
-# ==================== EXPERIMENT MANAGER ====================
-
 class ExperimentManager:
     """Manages experiments and results"""
     
@@ -973,8 +963,6 @@ class ExperimentManager:
                       f"{result.parameters:<12,} {result.training_time:<10.2f}")
 
 
-# ==================== DATA LOADER ====================
-
 class FashionMNISTDataLoader:
     """Handles Fashion-MNIST data loading"""
     
@@ -1082,8 +1070,6 @@ class FashionMNISTDataLoader:
         
         return subset
 
-
-# ==================== VISUALIZATION ====================
 
 class Visualizer:
     """Create visualizations for paper"""
@@ -1395,21 +1381,16 @@ class Visualizer:
         print(f"✓ Saved per-class LaTeX table to {tex_path}")
 
 
-# ==================== MAIN ====================
-
 def main():
     """Main execution function"""
-    print("="*70)
     print("CONTEXT-AWARE RESIDUAL BLOCKS (CARB) IMPLEMENTATION")
     print("Fashion-MNIST Experiments")
-    print("="*70)
     
     # Setup configurations
     training_config = TrainingConfig()
     network_config = NetworkConfig()
     
     # Ask about subset usage
-    print("\n" + "="*70)
     print("Dataset Configuration:")
     print("  Full Fashion-MNIST: 60,000 training + 10,000 test samples")
     print("  Subset options for faster experimentation:")
@@ -1418,7 +1399,6 @@ def main():
     print("    3. Use 20,000 samples (2,000 per class)")
     print("    4. Use 30,000 samples (3,000 per class)")
     print("    5. Custom size")
-    print("="*70)
     
     subset_choice = input("\nEnter choice (1-5): ").strip()
     
@@ -1478,12 +1458,10 @@ def main():
     experiment_manager = ExperimentManager(training_config, network_config)
     
     # User choice
-    print("\n" + "="*70)
     print("Select Experiment Type:")
     print("  1. Supervised Learning (Classification)")
     print("  2. Unsupervised Learning (Autoencoder + Clustering)")
     print("  3. Run Both")
-    print("="*70)
     
     choice = input("\nEnter choice (1/2/3): ").strip()
     
@@ -1513,9 +1491,7 @@ def main():
     
     # Create visualizations
     if supervised_results:
-        print("\n" + "="*70)
         print("Creating Visualizations...")
-        print("="*70)
         
         visualizer = Visualizer()
         
@@ -1582,9 +1558,7 @@ def main():
         print("\n[5/5] Creating summary tables...")
         create_summary_tables(supervised_results, per_class_results)
     
-    print("\n" + "="*70)
     print("EXPERIMENTS COMPLETED SUCCESSFULLY!")
-    print("="*70)
     print("\nGenerated files:")
     print("  Models: models/")
     print("  Results: results/")
@@ -1633,9 +1607,6 @@ def create_summary_tables(supervised_results: Dict, per_class_results: Dict):
     print("✓ Saved main results table to results/main_results_table.csv and .tex")
     
     # Print summary to console
-    print("\n" + "="*70)
-    print("FINAL RESULTS SUMMARY FOR PAPER")
-    print("="*70)
     print("\nTable 1: Main Results")
     print(df_main.to_string(index=False))
     
